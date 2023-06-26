@@ -1,0 +1,1 @@
+document.write("FUEN23<br>JavaScript")

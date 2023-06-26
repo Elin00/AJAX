@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <title>05ArrayObject.html</title>
+</head>
+<body>
+    <script>
+        //Array 物件
+        let balls = ["basketball", "baseball", "tennis", 123];
+        //console.log(balls);
+        for (let ball of balls) {
+            //console.log(ball);
+        }
+
+        
+        let myfoods = [["apple", "banana", "grape"], ["pork", "beef"]];
+        for (let i = 0, maxi = myfoods.length; i < maxi; i++) {
+            //console.log(myfoods.length);
+            //console.log(myfoods[i])
+             for (let j = 0, maxj = myfoods[i].length; j < maxj; j++) {
+                //console.log(myfoods[i][j]);
+             }
+        }
+
+        //for (let myfood of myfoods) {
+        //    console.log(myfood);
+        //    for (let food of myfood) {
+        //        console.log(food);
+        //    }
+        //}
+
+
+        //Array 方法
+        let ary = [3, 4, 5];
+        console.log(balls.concat(ary));
+        console.log(balls.join("-"));
+        console.log(balls);
+        console.log(balls.reverse());  //陣列元素順序反轉
+        balls.push("itemA", "itemB", "itemC");  //陣列尾端加入多個元素值
+        console.log(balls);
+        balls.pop();  //陣列尾端取出一個元素值
+        console.log(balls);
+        console.log(balls.slice(1, 4));  //複製陣列索引1~3
+        console.log(balls);
+        balls.splice(1, 2, "item1", "item2", "item3")  //從第1個開始，刪除2個，插入3個
+        console.log(balls);
+
+
+    </script>
+</body>
+</html>

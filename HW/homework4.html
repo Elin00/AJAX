@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>08黃宜琳HW4-輪播圖</title>
+    <style >
+        .carousel {
+            width: 500px;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin: auto;
+            margin-top:30px;
+        }
+        .carousel .container  {
+            width:100%;
+            height:100%;
+            position:relative;
+            left:0;
+            display:flex;
+            transition:all 1s;
+            }
+
+        .carousel .container a img {
+            width: 100%;
+            height: 100%;
+            object-fit:cover;
+        }
+
+        .carousel .container a {
+            width: 100%;
+            height: 100%;
+            flex-shrink:0; 
+            
+        }
+
+        .carousel .shift .btn {
+            position:absolute;
+            top:0;
+            bottom:0;
+            margin:auto 0;
+            color: black;
+            width: 50px;
+            height: 50px;
+            font-size: 40px;
+            font-weight: bold;
+            line-height: 50px;
+            text-align: center;
+            user-select:none;
+            opacity:0.5
+            
+        }
+        .carousel .shift .left{
+            left:5px;
+        }
+        .carousel .shift .right {
+            right: 5px;
+        }
+
+        .carousel .bottom {
+            position: absolute;
+            bottom:20px;
+            left: 0px;
+            right: 0px;
+            margin:0 auto;
+            width:max-content;
+            display: flex;
+            gap: 20px;
+            cursor:pointer;
+            font-weight:bold;
+           
+        }
+
+            .carousel .bottom div {
+                background: white;
+                width: 20px;
+                text-align: center;
+                opacity: 0.5;
+            }
+            .carousel:hover .carousel .bottom div {
+                opacity: 1;
+            }
+            .carousel:hover .carousel .shift .btn {
+                opacity: 1;
+            }
+        h1 {
+            color: #C20000;
+            text-align: center;
+        }
+
+            /*.bottom.indicator {
+                width: 10px;
+                height: 50px;
+            }*/
+
+    </style>
+</head>
+
+<body>
+    <h1>Merry Christmas</h1>
+    <div class="carousel">
+        
+        <div class="container">
+            <a href="https://www.ispan.com.tw/" target="_blank"><img src="images/c1.jpg" /></a>
+            <a href="https://www.ispan.com.tw/" target="_blank"><img src="images/c2.jpg" /></a>
+            <a href="https://www.ispan.com.tw/" target="_blank"><img src="images/c3.jpg" /></a>
+            <a href="https://www.ispan.com.tw/" target="_blank"><img src="images/c4.jpg" /></a>
+            <a href="https://www.ispan.com.tw/" target="_blank"><img src="images/c5.jpg" /></a>
+        </div>
+        <div class="shift">
+            <div class="btn left" onclick="leftShift()">&lt;</div>
+            <div class="btn right" onclick="rightShift()">&gt;</div>
+        </div>
+        <div class="bottom">
+            <div class="indicator" onclick="setIndex(0)">1</div>
+            <div class="indicator" onclick="setIndex(1)">2</div>
+            <div class="indicator" onclick="setIndex(2)">3</div>
+            <div class="indicator" onclick="setIndex(3)">4</div>
+            <div class="indicator" onclick="setIndex(4)">5</div>
+        </div>
+    </div>
+    
+   
+
+
+        <script>
+            let index = 0
+
+            //let imageCount = document.querySelectorAll(
+            //    ".carousel .container img"
+            //).lenght
+
+            //const bottom = document.querySelector(".carousel .bottom")
+            //for (let i = 0; i < imageCount; i++) {
+            //    const indicator = document.createElement("div")
+            //    indicator.classList.add("indicator")
+            //    indicator.onclick = () => setIndex(i)
+
+            //    buttom.append(indicator)
+            //}
+
+            function createAuto() {
+                return setInterval(() => {
+                    index++
+                    refresh()
+                }, 2500)
+            }
+
+            let autoTimer = createAuto()
+
+            function refresh() {
+                if (index < 0) {
+                    index = 4
+                }
+                else if (index > 4) {
+                    index = 0
+                }
+
+
+                let carousel = document.querySelector(".carousel")
+                let width = getComputedStyle(carousel).width
+                width = Number(width.slice(0, -2))
+                console.log(width)
+
+                carousel.querySelector(".container").style.left = index * width * -1 + "px"
+            }
+            let refreshWrapper = (func) => {
+                //refresh裝飾器
+                return function (...args) {
+                    let result = func(...args)
+                    refresh()
+
+                    clearInterval(autoTimer)
+                    autoTimer=createAuto()
+
+                    return result
+                }
+            }
+
+            let leftShift = refreshWrapper(() => {
+                index--
+            })
+            let rightShift = refreshWrapper(() => {
+                index++
+            })
+            let setIndex = refreshWrapper((idx) => {
+                index = idx
+            })
+
+
+            //function leftShift() {
+            //    index--
+            //    refresh()
+            //}
+            //function rightShift() {
+            //    index++
+            //    refresh()
+            //}
+            //function setIndex(idx) {
+            //    index = idx
+            //    refresh()
+            //}
+
+            refresh()
+
+
+
+        </script>
+</body>
+
+</html>

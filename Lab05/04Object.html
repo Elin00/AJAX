@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <title>04Object.html</title>
+</head>
+
+<body>
+    <div id="myDiv"></div>
+    <script>
+        // let br = "brand";
+        // let cars = new Object();
+        // // cars.brand = "audi";
+        // // cars["brand"] = "audi";
+        // cars["max speed"] = 200;
+        // console.log(cars);
+
+
+
+        function dispf() {
+            console.log(this);   //cars object
+            return `${this.brand},${this["max speed"]}`
+        }
+
+        let dispf2 = () => {
+            console.log(this);  //window
+            return `${cars.brand},${cars["max speed"]}`
+        }
+        let cars = {
+            brand: "tesla",   //property
+            "max speed": 250,
+            color: "red",
+            display: dispf2    //method
+        }
+        //console.log(cars);
+        //console.log(cars.brand);
+        console.log(cars.display());  //方法呼叫
+        console.log("=========");
+        //方法是繫結到某個物件，函數就沒有繫結
+
+
+
+        //for..in
+        let myDiv = document.getElementById("myDiv");
+        for (let prop in cars) {
+            // console.log(prop);
+            // console.log(cars[prop]);
+            console.log(`<li>cars["${prop}"]=${cars[prop]}</li>`);
+            myDiv.innerHTML += `<li>cars["${prop}"]=${cars[prop]}</li>`;
+        }
+    </script>
+</body>
+
+</html>

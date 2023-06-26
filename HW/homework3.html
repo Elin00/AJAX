@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>08黃宜琳HW3-五星評分</title>
+    <style>
+        span{
+            color:crimson;
+            font-size:20px;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="idimg1" src="Images/star.gif" />
+    <img id="idimg2" src="Images/star.gif" />
+    <img id="idimg3" src="Images/star.gif" />
+    <img id="idimg4" src="Images/star.gif" />
+    <img id="idimg5" src="Images/star.gif" />
+    <h3>單擊星星可評分，雙擊星星重置</h3>
+    <span id="a">您給...顆星</span>
+
+    <script>
+        let s = document.getElementById("a");
+        let a = false;
+        let stars = document.getElementsByTagName("img");
+
+        for (let img of stars)
+        {
+            img.addEventListener("mouseover", mouseover);
+            img.addEventListener("mouseout", mouseout);
+            img.addEventListener("click", click);
+            img.addEventListener("dblclick", dblclick);
+
+        }
+
+        function mouseover()
+        {
+            if (a == false) {
+                for (let i = 1; i <= this.id.substr(5); i++) {
+                    document.getElementById("idimg" + i).src = "Images/chngstar.gif"
+
+                }
+            }
+
+        }
+        function mouseout()
+        {
+            if (a == false) {
+                for (let i = 1; i <= this.id.substr(5); i++) {
+                    document.getElementById("idimg" + i).src = "Images/star.gif"
+
+                } 
+            }
+        }
+        function dblclick()
+        {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById("idimg" + i).src = "Images/star.gif"
+            }
+            s.innerHTML = "您給...顆星";
+            a = false;
+        }
+
+        function click()
+        {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById("idimg" + i).src = "Images/star.gif"
+            }
+            for (let i = 1; i <= this.id.substr(5); i++) {
+                document.getElementById("idimg" + i).src = "Images/chngstar.gif";
+            }
+            a = true;
+
+            if (a == true) {
+                s.innerHTML = `評價為${event.currentTarget.id.substr(5)}顆星`;;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

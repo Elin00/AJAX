@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="UTF-8">
+    <title>08黃宜琳HW2</title>
+    <style>
+        .st1 {
+            width: 500px;
+            border-bottom: 2px dashed #e7c2c2;
+            margin: 10px;
+           
+        }
+
+        .sub {
+            width: 450px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .t1 {
+            width: 100px;
+            float: left;
+            text-align: right;
+        }
+
+        fieldset {
+            width: 500px;
+            border: 1px solid #e7c2c2;
+            border-radius: 10px;
+            margin: 50px auto;
+        }
+
+        legend {
+            font-size:25px;
+            color: lightcoral;
+            /* text-align: center; */
+            margin-left: 30px;
+        }
+
+        strong {
+            color:crimson;
+        }
+
+     
+        .a {
+            font-size:13px;
+            color: dimgrey;
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend><strong>Form Check</strong></legend>
+        <div class="st1">
+            <label for="account1" class="t1">姓名：</label><input type="text" id="idName" size="13" placeholder="請輸入姓名">
+            <span style=" font-size: 10px" id="eName"></span><br />
+            <p class="a">(1.不可空白 2.至少兩個字以上 3.必須全部為中文字)</p>
+        </div>
+
+        <div class="st1">
+            <label for="pwd1" class="t1">密碼：</label><input type="password" id="idPwd" size="13">
+            <span style=" font-size: 10px" id="idsp"></span><br />
+            <p class="a">(1.不可空白 2.至少六個字且必須包含英數字、特殊字元[!@#$%^&*])</p>
+        </div>
+
+        <div class="st1">
+            <label class="t1">生日：</label>
+            <input type="text" id="idDate" size="13" />
+            <span style=" font-size: 10px" id="eDate"></span><br />
+            <p class="a">格式:西元/月/日(yyyy/mm/dd)</p>
+        </div>
+    </fieldset>
+
+    <script>
+        document.getElementById("idName").addEventListener("blur", checkName);
+        document.getElementById("idPwd").addEventListener("blur", checkPwd);
+        document.getElementById("idDate").addEventListener("blur", checkDate);
+
+        
+
+        function checkName() {
+            let theNameObj = document.getElementById("idName");
+            let theNameObjVal = theNameObj.value;
+            let eName = document.getElementById("eName");
+            let theNameObjValLen = theNameObjVal.length;
+            let re = /^[\u4e00-\u9fa5]+$/
+
+            if (theNameObjVal == "")
+                eName.innerHTML = "<img src='Images/00.jpg'/>姓名不可為空白";
+
+            else if (theNameObjValLen >= 2) {
+                if (re.test(theNameObjVal)) {
+                    eName.innerHTML = "<img src='Images/OK.jpg'/>OK";
+
+                }
+                else
+                    eName.innerHTML = "<img src='Images/00.jpg'/>姓名必須都是中文";
+
+            }
+            else
+                eName.innerHTML = "<img src='Images/00.jpg'/>姓名必須輸入最少兩個字";
+
+        }
+        function checkPwd() {
+            //取得idPwd元素
+            let thePwdObj = document.getElementById("idPwd");
+            //取得idPwd元素值
+            let thePwdObjVal = thePwdObj.value;
+            console.log(thePwdObjVal);
+            console.log(typeof thePwdObjVal);
+
+            //判斷元素值是否為空白，密碼長度是否大於6
+            //如果長度是否大於6，判斷是否包含字母、數字、特殊符號
+            let idsp = document.getElementById("idsp");
+            let thePwdObjValLen = thePwdObjVal.length;
+            let flag1 = false, flag2 = false, flag3 = false;
+
+            if (thePwdObjVal == "")
+                idsp.innerHTML = "<img src='Images/00.jpg'/>密碼不可為空白";
+
+            else if (thePwdObjValLen >= 6) {
+                // sp.innerHTML=">=6";
+                for (let i = 0; i < thePwdObjValLen; i++) {
+                    let ch = thePwdObjVal.charAt(i).toUpperCase();
+                    if (ch >= "A" && ch <= "Z")
+                        flag1 = true;
+                    else if (ch >= "0" && ch <= "9")
+                        flag2 = true;
+                    else if (ch = /^[\!\@\#\$\%\^\&\*]+$/)
+                        flag3 = true;
+                    if (flag1 && flag2 && flag3) break;
+                }
+                if (flag1 && flag2 && flag3)
+                    //sp.innerHTML = "correct";
+                    idsp.innerHTML = "<img src='Images/OK.jpg'/>OK";
+
+                else
+                    //sp.innerHTML="incorrect";
+                    idsp.innerHTML = "<img src='Images/00.jpg'/>密碼輸入規則錯誤";
+
+
+            } else {
+                //sp.innerHTML = "密碼必須大於六個字";
+                idsp.innerHTML = "<img src='Images/00.jpg'/>密碼必須大於六個字";
+
+            }
+        }
+            
+
+            function checkDate()
+            {
+                let theDateObjVal = document.getElementById("idDate").value;
+                let eDate = document.getElementById("eDate");
+                let d = new Date(theDateObjVal);
+                let theYear = d.getFullYear();
+                let theMonth = d.getMonth() + 1;
+                let theDay = d.getDate();
+
+                let checkDate = `${theYear}/${theMonth}/${theDay}`;
+
+                if (theDateObjVal == "")
+                    eDate.innerHTML = "<img src='Images/00.jpg'/>生日不可為空白";
+                else if (checkDate == theDateObjVal)     
+                    eDate.innerHTML = "<img src='Images/OK.jpg'/>OK";
+                else
+                    eDate.innerHTML = "<img src='Images/00.jpg'/>無此日期";
+            }
+
+
+    </script>
+</body>
+
+</html>
